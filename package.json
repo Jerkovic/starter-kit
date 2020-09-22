@@ -1,0 +1,94 @@
+{
+    "name": "yetric-ui-kit",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "dev": "webpack-dev-server --progress --colors --hot --config webpack.config.js --mode=development",
+        "build": "webpack --mode=production",
+        "dev:analyze": "webpack-dev-server --progress --colors --hot --config webpack.config.js --mode=development  --env.DEBUG=true",
+        "build:analyze": "webpack --mode=production --env.DEBUG=true",
+        "prettier": "prettier --write src/**/*.*",
+        "tslint": "tslint '**/*.ts'",
+        "test": "jest --passWithNoTests"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/hising/frontend-starter-kit.git"
+    },
+    "author": "Mattias Hising <mattias@yetric.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/hising/frontend-starter-kit/issues"
+    },
+    "homepage": "https://github.com/hising/frontend-starter-kit#readme",
+    "dependencies": {
+        "@types/fingerprintjs2": "^2.0.0",
+        "@types/jest": "^24.0.19",
+        "@types/react": "^16.9.9",
+        "@types/react-dom": "^16.9.2",
+        "@types/react-router-dom": "^5.1.0",
+        "antd": "^3.24.2",
+        "fingerprintjs2": "^2.1.0",
+        "formik": "^1.5.8",
+        "mobx": "^5.14.2",
+        "mobx-react": "^6.1.4",
+        "react": "^16.11.0",
+        "react-dom": "^16.11.0",
+        "react-router-dom": "^5.1.2"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.6.4",
+        "@babel/plugin-proposal-class-properties": "^7.5.5",
+        "@babel/plugin-proposal-decorators": "^7.6.0",
+        "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
+        "@babel/plugin-transform-async-to-generator": "^7.5.0",
+        "@babel/preset-env": "^7.6.3",
+        "@babel/preset-react": "^7.6.3",
+        "@babel/preset-typescript": "^7.6.0",
+        "babel-jest": "^24.9.0",
+        "babel-loader": "^8.0.6",
+        "babel-plugin-import": "^1.12.2",
+        "clean-webpack-plugin": "^3.0.0",
+        "css-loader": "^3.2.0",
+        "cssnano": "^4.1.10",
+        "favicons-webpack-plugin": "^1.0.2",
+        "file-loader": "^4.2.0",
+        "html-webpack-plugin": "^3.2.0",
+        "husky": "^3.0.9",
+        "jest": "^24.9.0",
+        "lint-staged": "^9.4.2",
+        "mini-css-extract-plugin": "^0.8.0",
+        "node-sass": "^4.12.0",
+        "optimize-css-assets-webpack-plugin": "^5.0.3",
+        "postcss-import": "^12.0.1",
+        "postcss-loader": "^3.0.0",
+        "postcss-preset-env": "^6.7.0",
+        "prettier": "^1.18.2",
+        "prettier-check": "^2.0.0",
+        "react-hot-loader": "^4.12.15",
+        "sass-loader": "^8.0.0",
+        "style-loader": "^1.0.0",
+        "terser-webpack-plugin": "^2.2.1",
+        "tslint": "^5.20.0",
+        "typescript": "^3.6.4",
+        "webpack": "^4.41.2",
+        "webpack-ant-icon-loader": "^1.0.8",
+        "webpack-bundle-analyzer": "^3.6.0",
+        "webpack-cli": "^3.3.9",
+        "webpack-dev-server": "^3.9.0",
+        "webpack-merge": "^4.2.2",
+        "webpack-monitor": "^1.0.14"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "*.{js,jsx,ts,tsx,json,css,md}": [
+            "prettier --write",
+            "git add"
+        ]
+    }
+}

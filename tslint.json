@@ -1,0 +1,25 @@
+{
+    "defaultSeverity": "error",
+    "extends": ["tslint:latest"],
+    "jsRules": {},
+    "rules": {
+        "variable-name": [
+            true,
+            "ban-keywords",
+            "check-format",
+            "allow-leading-underscore"
+        ],
+        "no-submodule-imports": false,
+        "no-return-await": false,
+        "no-empty": false,
+        "trailing-comma": false,
+        "no-implicit-dependencies": false,
+        "semicolon": true,
+        "no-console": false,
+        "interface-name": [true, "never-prefix"]
+    },
+    "rulesDirectory": [],
+    "linterOptions": {
+        "exclude": ["**/node_modules/**"]
+    }
+}
