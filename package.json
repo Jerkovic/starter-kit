@@ -30,10 +30,12 @@
         "@types/react-router-dom": "^5.1.0",
         "antd": "^4.6.5",
         "fingerprintjs2": "^2.1.0",
+        "firebase": "^7.21.0",
         "mobx": "^5.14.2",
         "mobx-react": "^6.1.4",
         "react": "^16.13.0",
         "react-dom": "^16.11.0",
+        "react-firebase-hooks": "^2.2.0",
         "react-router-dom": "^5.1.2"
     },
     "devDependencies": {

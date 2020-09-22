@@ -41,6 +41,8 @@ App accessible at http://localhost:3000
     -   Decorators
     -   Mobx For React
     -   React Router
+-   Firebase
+    -   React-firebase-hooks
 -   TypeScript
 -   Prettier
 -   Jest
