@@ -1,13 +1,14 @@
 {
     "defaultSeverity": "error",
-    "extends": ["tslint:latest"],
+    "extends": ["tslint:latest", "tslint-react-hooks"],
     "jsRules": {},
     "rules": {
         "variable-name": [
             true,
             "ban-keywords",
             "check-format",
-            "allow-leading-underscore"
+            "allow-leading-underscore",
+            "allow-pascal-case"
         ],
         "no-submodule-imports": false,
         "no-return-await": false,

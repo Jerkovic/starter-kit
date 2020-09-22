@@ -6,9 +6,5 @@ export class AppStore extends BaseStore {
     @observable public isHidden: boolean = false;
     constructor(rootStore: RootStore) {
         super(rootStore);
-        this.isHidden = document.hidden;
-        document.addEventListener("visibilitychange", () => {
-            this.isHidden = document.hidden;
-        });
     }
 }
