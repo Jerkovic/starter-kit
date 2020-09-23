@@ -2,8 +2,8 @@ import {Button, message, Spin} from "antd/es";
 import Title from "antd/es/typography/Title";
 import * as React from "react";
 import {useCollection} from "react-firebase-hooks/firestore";
+import {Link, useHistory} from "react-router-dom";
 import firebase from "../services/firebase";
-import {useHistory} from "react-router-dom";
 
 export const Home = () => {
     const history = useHistory();
@@ -27,7 +27,12 @@ export const Home = () => {
 
     return (
         <div>
-            <Title level={3}>UI</Title>
+            <Title level={3}>Home</Title>
+            <Link to={`/upload`}>
+                <Button type="primary" key="console">
+                    Upload
+                </Button>
+            </Link>
             <div>
                 {error && <strong>Error: {JSON.stringify(error)}</strong>}
                 {loading && <Spin />}

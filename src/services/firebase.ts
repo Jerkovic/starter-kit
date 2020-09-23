@@ -1,36 +1,36 @@
 import app from "firebase/app";
-import "firebase/firestore";
 import "firebase/auth";
+import "firebase/firestore";
+import "firebase/storage";
 
 const firebaseConfig = {};
-
-//export const db = app.firestore();
 
 class Firebase {
     public auth: app.auth.Auth;
     public db: app.firestore.Firestore;
+    public storage: app.storage.Storage;
 
     constructor() {
         app.initializeApp(firebaseConfig);
         this.auth = app.auth();
         this.db = app.firestore();
-        console.log(this.auth.currentUser);
+        this.storage = app.storage();
     }
 
-    login(email: string, password: string) {
+    public login(email: string, password: string) {
         return this.auth.signInWithEmailAndPassword(email, password);
     }
 
-    logout() {
+    public logout() {
         return this.auth.signOut();
     }
 
-    getCurrentUsername() {
+    public getCurrentUsername() {
         console.log(this.auth.currentUser);
         return this.auth.currentUser && this.auth.currentUser.email;
     }
 
-    isInitialized(): Promise<any> {
+    public isInitialized(): Promise<any> {
         return new Promise((resolve) => {
             this.auth.onAuthStateChanged(resolve);
         });
