@@ -14,6 +14,7 @@ class Firebase {
         app.initializeApp(firebaseConfig);
         this.auth = app.auth();
         this.db = app.firestore();
+        console.log(this.auth.currentUser);
     }
 
     login(email: string, password: string) {
@@ -22,6 +23,11 @@ class Firebase {
 
     logout() {
         return this.auth.signOut();
+    }
+
+    getCurrentUsername() {
+        console.log(this.auth.currentUser);
+        return this.auth.currentUser && this.auth.currentUser.email;
     }
 
     isInitialized(): Promise<any> {

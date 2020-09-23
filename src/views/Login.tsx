@@ -4,6 +4,7 @@ import firebase from "../services/firebase";
 import {useState} from "react";
 import {Button} from "antd";
 import {Checkbox, Form, Input, message} from "antd/es";
+import {useHistory} from "react-router-dom";
 
 const layout = {
     labelCol: {span: 8},
@@ -14,21 +15,22 @@ const tailLayout = {
 };
 
 export const Login = () => {
+    const history = useHistory();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     async function login() {
         try {
             await firebase.login(email, password);
-            alert("Logged in");
+            message.success("You are logged in");
+            history.push("/");
         } catch (error) {
-            alert(error);
+            message.error("Error occurred" + error);
         }
     }
 
     const onFinish = (values: any) => {
-        console.log("Success:", values);
-        login().then(message.error("error"));
+        login().then();
     };
 
     const onFinishFailed = (errorInfo: any) => {
