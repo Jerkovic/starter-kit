@@ -2,12 +2,15 @@ import {Spin} from "antd/es";
 import Title from "antd/es/typography/Title";
 import * as React from "react";
 import {useCollection} from "react-firebase-hooks/firestore";
-import {db} from "../services/firestore";
+import firebase from "../services/firebase";
 
 export const Home = () => {
-    const [value, loading, error] = useCollection(db.collection("qualifiers"), {
-        snapshotListenOptions: {includeMetadataChanges: true}
-    });
+    const [value, loading, error] = useCollection(
+        firebase.db.collection("qualifiers"),
+        {
+            snapshotListenOptions: {includeMetadataChanges: true}
+        }
+    );
     return (
         <div>
             <Title level={3}>UI</Title>

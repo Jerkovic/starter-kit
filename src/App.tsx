@@ -6,24 +6,36 @@ import {BrowserRouter as Router, Route} from "react-router-dom";
 import "./App.scss";
 import {AppLayout} from "./components/AppLayout";
 import {RootStore} from "./stores/RootStore";
-import {Account, Home, Settings, Signup} from "./views";
+import {Account, Home, Login, Settings, Signup} from "./views";
+import {useEffect, useState} from "react";
+import {Spin} from "antd";
+import firebase from "./services/firebase";
 
 interface AppProps {
     rootStore: RootStore;
 }
 
 const App = (props: AppProps) => {
-    return (
+    const [initialized, setInitialized] = useState(false);
+
+    useEffect(() => {
+        firebase.isInitialized().then(() => {
+            setInitialized(true);
+        });
+    });
+
+    return initialized !== false ? (
         <Router>
             <Provider rootStore={props.rootStore}>
                 <AppLayout>
-                    <Route path="/" exact component={Home} />
-                    <Route path="/account" exact component={Account} />
-                    <Route path="/signup" exact component={Signup} />
-                    <Route path="/settings" exact component={Settings} />
+                    <Route exact path="/" component={Home} />
+                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/account" component={Account} />
                 </AppLayout>
             </Provider>
         </Router>
+    ) : (
+        <Spin />
     );
 };
 
