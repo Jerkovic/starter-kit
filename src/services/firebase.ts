@@ -25,11 +25,6 @@ class Firebase {
         return this.auth.signOut();
     }
 
-    public getCurrentUsername() {
-        console.log(this.auth.currentUser);
-        return this.auth.currentUser && this.auth.currentUser.email;
-    }
-
     public isInitialized(): Promise<any> {
         return new Promise((resolve) => {
             this.auth.onAuthStateChanged(resolve);

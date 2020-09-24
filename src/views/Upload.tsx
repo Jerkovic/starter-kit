@@ -1,10 +1,11 @@
-import {ChangeEvent, FormEvent} from "react";
 import * as React from "react";
-import {uuidv4} from "../helpers/utils";
+import {v4 as uuidv4} from "uuid";
+import {AuthContext} from "../components/AuthProvider";
 import firebase from "../services/firebase";
 
 export const Upload = () => {
     const [fileUrl, setFileUrl] = React.useState(null);
+    const user = React.useContext(AuthContext);
 
     const onFileChange = async (e: any) => {
         const file: File = e.target.files[0];
@@ -15,12 +16,13 @@ export const Upload = () => {
         console.log(file.type);
         setFileUrl(await fileRef.getDownloadURL());
     };
-    const onSubmit = async (e: FormEvent) => {
+    const onSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         alert(fileUrl);
     };
     return (
         <div>
+            User:
             <form onSubmit={onSubmit}>
                 <input type="file" onChange={onFileChange} />
                 <button>Submit</button>

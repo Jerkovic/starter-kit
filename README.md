@@ -48,3 +48,8 @@ App accessible at http://localhost:3000
 -   Jest
 -   Tslint
 -   Ant Design 4
+
+## Todo
+
+-   Firebase credentials in .env file
+-

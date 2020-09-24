@@ -25,7 +25,7 @@ export const Login = () => {
             message.success("You are logged in");
             history.push("/");
         } catch (error) {
-            message.error("Error occurred" + error);
+            message.error(error);
         }
     }
 

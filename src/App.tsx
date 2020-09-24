@@ -1,12 +1,12 @@
 import {Spin} from "antd";
 import "antd/dist/antd.css";
-import {Provider} from "mobx-react";
-import * as React from "react";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {hot} from "react-hot-loader/root";
 import {Route, Router, Switch} from "react-router-dom";
 import "./App.scss";
 import {AppLayout} from "./components/AppLayout";
+import {AuthProvider} from "./components/AuthProvider";
+import {PrivateRoute} from "./components/PrivateRoute";
 import history from "./helpers/history";
 import firebase from "./services/firebase";
 import {RootStore} from "./stores/RootStore";
@@ -16,6 +16,9 @@ import {Upload} from "./views/Upload";
 interface AppProps {
     rootStore: RootStore;
 }
+
+export const UserContext = React.createContext("kalle");
+export const UserProvider = UserContext.Provider;
 
 const App = (props: AppProps) => {
     const [initialized, setInitialized] = useState(false);
@@ -28,15 +31,20 @@ const App = (props: AppProps) => {
 
     return initialized ? (
         <Router history={history}>
-            <Provider rootStore={props.rootStore}>
+            <AuthProvider>
                 <AppLayout>
                     <Switch>
                         <Route exact path="/" component={Home} />
                         <Route exact path="/login" component={Login} />
-                        <Route exact path="/upload" component={Upload} />
+                        <PrivateRoute
+                            exact
+                            path="/upload"
+                            component={Upload}
+                            isAuthenticated={true}
+                        />
                     </Switch>
                 </AppLayout>
-            </Provider>
+            </AuthProvider>
         </Router>
     ) : (
         <Spin />
