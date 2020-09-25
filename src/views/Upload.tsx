@@ -1,11 +1,11 @@
 import * as React from "react";
 import {v4 as uuidv4} from "uuid";
-import {AuthContext} from "../components/AuthProvider";
+import {useAuth} from "../components/AuthProvider";
 import firebase from "../services/firebase";
 
 export const Upload = () => {
     const [fileUrl, setFileUrl] = React.useState(null);
-    const user = React.useContext(AuthContext);
+    const user = useAuth();
 
     const onFileChange = async (e: any) => {
         const file: File = e.target.files[0];

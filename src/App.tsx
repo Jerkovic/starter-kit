@@ -17,9 +17,6 @@ interface AppProps {
     rootStore: RootStore;
 }
 
-export const UserContext = React.createContext("kalle");
-export const UserProvider = UserContext.Provider;
-
 const App = (props: AppProps) => {
     const [initialized, setInitialized] = useState(false);
 

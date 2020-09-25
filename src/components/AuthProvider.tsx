@@ -1,8 +1,14 @@
 import {User} from "firebase";
-import React, {createContext, ReactNode, useEffect, useState} from "react";
+import React, {
+    createContext,
+    ReactNode,
+    useContext,
+    useEffect,
+    useState
+} from "react";
 import firebase from "../services/firebase";
 
-export const AuthContext = createContext<User | null>(null);
+const AuthContext = createContext<User | null>(null);
 
 interface AuthProviderProps {
     children: ReactNode;
@@ -13,14 +19,17 @@ export const AuthProvider = (props: AuthProviderProps) => {
     const [pending, setPending] = useState(true);
 
     useEffect(() => {
-        firebase.auth.onAuthStateChanged((user: User | null) => {
-            setCurrentUser(user);
-            setPending(false);
-        });
+        const unsubscribe = firebase.auth.onAuthStateChanged(
+            (user: User | null) => {
+                setCurrentUser(user);
+                setPending(false);
+            }
+        );
+        return () => unsubscribe();
     }, []);
 
     if (pending) {
-        return <div></div>;
+        return <div>Loading...</div>;
     }
 
     return (
@@ -29,3 +38,5 @@ export const AuthProvider = (props: AuthProviderProps) => {
         </AuthContext.Provider>
     );
 };
+
+export const useAuth = () => useContext(AuthContext);

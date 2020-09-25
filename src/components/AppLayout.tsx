@@ -6,14 +6,14 @@ const {Content, Footer, Header} = Layout;
 
 import {PageHeader} from "antd";
 import {Link} from "react-router-dom";
-import {AuthContext} from "./AuthProvider";
+import {useAuth} from "./AuthProvider";
 
 interface AppLayoutProps {
     children: any;
 }
 
 export const AppLayout = (props: AppLayoutProps) => {
-    const currentUser = useContext(AuthContext);
+    const currentUser = useAuth();
     return (
         <div>
             <Header>
