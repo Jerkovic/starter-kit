@@ -33,12 +33,7 @@ const App = (props: AppProps) => {
                     <Switch>
                         <Route exact path="/" component={Home} />
                         <Route exact path="/login" component={Login} />
-                        <PrivateRoute
-                            exact
-                            path="/upload"
-                            component={Upload}
-                            isAuthenticated={true}
-                        />
+                        <PrivateRoute exact path="/upload" component={Upload} />
                     </Switch>
                 </AppLayout>
             </AuthProvider>

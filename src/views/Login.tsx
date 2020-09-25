@@ -1,4 +1,3 @@
-// @flow
 import * as React from "react";
 import firebase from "../services/firebase";
 import {useState} from "react";
@@ -22,15 +21,17 @@ export const Login = () => {
     async function login() {
         try {
             await firebase.login(email, password);
-            message.success("You are logged in");
             history.push("/");
         } catch (error) {
-            message.error(error);
+            console.log(error);
+            throw error;
         }
     }
 
     const onFinish = (values: any) => {
-        login().then();
+        login()
+            .then()
+            .catch((e) => message.error(e.message));
     };
 
     const onFinishFailed = (errorInfo: any) => {
