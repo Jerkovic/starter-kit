@@ -8,10 +8,10 @@ import {AppLayout} from "./components/AppLayout";
 import {AuthProvider} from "./components/AuthProvider";
 import {PrivateRoute} from "./components/PrivateRoute";
 import history from "./helpers/history";
-import firebase from "./services/firebase";
+import firebaseWrapper from "./services/firebaseWrapper";
 import {RootStore} from "./stores/RootStore";
 import {Home, Login} from "./views";
-import {Upload} from "./views/Upload";
+import {UploadView} from "./views/UploadView";
 
 interface AppProps {
     rootStore: RootStore;
@@ -21,7 +21,7 @@ const App = (props: AppProps) => {
     const [initialized, setInitialized] = useState(false);
 
     useEffect(() => {
-        firebase.isInitialized().then(() => {
+        firebaseWrapper.isInitialized().then(() => {
             setInitialized(true);
         });
     });
@@ -33,7 +33,11 @@ const App = (props: AppProps) => {
                     <Switch>
                         <Route exact path="/" component={Home} />
                         <Route exact path="/login" component={Login} />
-                        <PrivateRoute exact path="/upload" component={Upload} />
+                        <PrivateRoute
+                            exact
+                            path="/upload"
+                            component={UploadView}
+                        />
                     </Switch>
                 </AppLayout>
             </AuthProvider>

@@ -6,7 +6,7 @@ import React, {
     useEffect,
     useState
 } from "react";
-import firebase from "../services/firebase";
+import firebaseWrapper from "../services/firebaseWrapper";
 
 const AuthContext = createContext<User | null>(null);
 
@@ -19,7 +19,7 @@ export const AuthProvider = (props: AuthProviderProps) => {
     const [pending, setPending] = useState(true);
 
     useEffect(() => {
-        const unsubscribe = firebase.auth.onAuthStateChanged(
+        const unsubscribe = firebaseWrapper.auth.onAuthStateChanged(
             (user: User | null) => {
                 setCurrentUser(user);
                 setPending(false);

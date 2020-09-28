@@ -4,19 +4,19 @@ import * as React from "react";
 import {useCollection} from "react-firebase-hooks/firestore";
 import {Link, useHistory} from "react-router-dom";
 import {useAuth} from "../components/AuthProvider";
-import firebase from "../services/firebase";
+import firebaseWrapper from "../services/firebaseWrapper";
 
 export const Home = () => {
     const history = useHistory();
     const currentUser = useAuth();
     const [value, loading, error] = useCollection(
-        firebase.db.collection("qualifiers"),
+        firebaseWrapper.db.collection("qualifiers"),
         {
             snapshotListenOptions: {includeMetadataChanges: true}
         }
     );
     async function logout() {
-        await firebase.logout();
+        await firebaseWrapper.logout();
         history.push("/");
     }
 

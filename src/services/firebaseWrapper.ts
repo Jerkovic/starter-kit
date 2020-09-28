@@ -21,6 +21,10 @@ class Firebase {
         return this.auth.signInWithEmailAndPassword(email, password);
     }
 
+    public isAuthenticated(): boolean {
+        return this.auth.currentUser !== null;
+    }
+
     public logout() {
         return this.auth.signOut();
     }
@@ -33,5 +37,5 @@ class Firebase {
 
     // async register
 }
-const firebase = new Firebase();
-export default firebase;
+const firebaseWrapper = new Firebase();
+export default firebaseWrapper;

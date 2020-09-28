@@ -1,9 +1,8 @@
-import * as React from "react";
-import firebase from "../services/firebase";
-import {useState} from "react";
 import {Button} from "antd";
 import {Checkbox, Form, Input, message} from "antd/es";
+import * as React from "react";
 import {useHistory} from "react-router-dom";
+import firebaseWrapper from "../services/firebaseWrapper";
 
 const layout = {
     labelCol: {span: 8},
@@ -15,12 +14,12 @@ const tailLayout = {
 
 export const Login = () => {
     const history = useHistory();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
 
     async function login() {
         try {
-            await firebase.login(email, password);
+            await firebaseWrapper.login(email, password);
             history.push("/");
         } catch (error) {
             console.log(error);

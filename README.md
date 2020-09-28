@@ -52,4 +52,4 @@ App accessible at http://localhost:3000
 ## Todo
 
 -   Firebase credentials in .env file
--
+-   Giphy api
