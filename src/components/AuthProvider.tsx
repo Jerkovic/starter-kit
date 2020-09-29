@@ -8,13 +8,17 @@ import React, {
 } from "react";
 import firebaseWrapper from "../services/firebaseWrapper";
 
-interface AuthContextValue {
+export interface AuthContextValue {
     currentUser: firebase.User | null;
-    userDetails: string;
+    userDetails: UserDetails | null;
+}
+
+export interface UserDetails {
+    logins: number;
 }
 const AuthContext = createContext<AuthContextValue>({
     currentUser: null,
-    userDetails: ""
+    userDetails: null
 });
 
 interface AuthProviderProps {
@@ -23,7 +27,7 @@ interface AuthProviderProps {
 
 export const AuthProvider = (props: AuthProviderProps) => {
     const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
-    const [userDetails, setUserDetails] = useState("John Doe");
+    const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
     const [pending, setPending] = useState(true);
 
     useEffect(() => {
@@ -31,6 +35,11 @@ export const AuthProvider = (props: AuthProviderProps) => {
             (user: firebase.User | null) => {
                 setCurrentUser(firebaseWrapper.auth.currentUser);
                 if (user) {
+                    firebaseWrapper
+                        .getUserProfile()
+                        .then((d: firebase.firestore.DocumentSnapshot<any>) => {
+                            setUserDetails({logins: d.data().logins});
+                        });
                     user.providerData.forEach((profile) => {
                         if (profile) {
                             console.log("  Provider: " + profile.providerId);
@@ -40,6 +49,8 @@ export const AuthProvider = (props: AuthProviderProps) => {
                             console.log("  Photo URL: " + profile.photoURL);
                         }
                     });
+                } else {
+                    setUserDetails(null);
                 }
                 setPending(false);
             }

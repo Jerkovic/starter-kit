@@ -18,10 +18,11 @@ export const AppLayout = (props: AppLayoutProps) => {
             <Header>
                 <div className="logo">
                     {auth.currentUser ? (
-                        `${auth.currentUser.email} - ${auth.userDetails}`
+                        `${auth.currentUser.email}`
                     ) : (
                         <Link to={"/login"}>Login</Link>
                     )}
+                    {auth.userDetails && auth.userDetails.logins}
                 </div>
             </Header>
             <Layout style={{minHeight: "100vh"}}>

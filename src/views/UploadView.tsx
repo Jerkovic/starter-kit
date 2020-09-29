@@ -7,7 +7,7 @@ import firebaseWrapper from "../services/firebaseWrapper";
 
 export const UploadView = () => {
     const [fileUrl, setFileUrl] = React.useState(null);
-    const currentUser = useAuth();
+    const auth = useAuth();
 
     const onFileChange = async (e: any) => {
         const file: File = e.target.files[0];
@@ -46,7 +46,7 @@ export const UploadView = () => {
     };
     return (
         <div>
-            {currentUser && <span>{currentUser.email}</span>}
+            {auth.currentUser && <span>{auth.currentUser.email}</span>}
             <form onSubmit={onSubmit}>
                 <input type="file" onChange={onFileChange} />
                 <button>Submit</button>
