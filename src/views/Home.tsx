@@ -8,13 +8,14 @@ import firebaseWrapper from "../services/firebaseWrapper";
 
 export const Home = () => {
     const history = useHistory();
-    const currentUser = useAuth();
+    const auth = useAuth();
     const [value, loading, error] = useCollection(
         firebaseWrapper.db.collection("qualifiers"),
         {
             snapshotListenOptions: {includeMetadataChanges: true}
         }
     );
+
     async function logout() {
         await firebaseWrapper.logout();
         history.push("/");
@@ -33,7 +34,9 @@ export const Home = () => {
                 {loading && <Spin />}
                 {value && (
                     <span>
-                        {currentUser && <span>{currentUser.email}</span>}
+                        {auth.currentUser && (
+                            <span>{auth.currentUser.email}</span>
+                        )}
                         <Button type="primary" onClick={logout}>
                             Logout
                         </Button>

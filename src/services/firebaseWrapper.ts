@@ -21,6 +21,15 @@ class Firebase {
         return this.auth.signInWithEmailAndPassword(email, password);
     }
 
+    public async getUserProfile(): Promise<app.firestore.DocumentReference> {
+        const user = await this.auth.currentUser;
+        if (user) {
+            return this.db.doc(`/user/${user.uid}`);
+        } else {
+            return Promise.reject("Could not load profile");
+        }
+    }
+
     public isAuthenticated(): boolean {
         return this.auth.currentUser !== null;
     }

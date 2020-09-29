@@ -1,6 +1,4 @@
 import Layout from "antd/lib/layout";
-import Menu from "antd/lib/menu";
-import {useContext} from "react";
 import * as React from "react";
 const {Content, Footer, Header} = Layout;
 
@@ -13,14 +11,14 @@ interface AppLayoutProps {
 }
 
 export const AppLayout = (props: AppLayoutProps) => {
-    const currentUser = useAuth();
+    const auth = useAuth();
 
     return (
         <div>
             <Header>
                 <div className="logo">
-                    {currentUser ? (
-                        currentUser.email
+                    {auth.currentUser ? (
+                        `${auth.currentUser.email} - ${auth.userDetails}`
                     ) : (
                         <Link to={"/login"}>Login</Link>
                     )}
