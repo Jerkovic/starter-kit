@@ -21,7 +21,7 @@ export const Login = () => {
     async function login() {
         try {
             const credentials = await firebaseWrapper.login(email, password);
-            await increaseLogin(credentials.user);
+            // await increaseLogin(credentials.user);
             history.push("/");
         } catch (error) {
             console.log(error);

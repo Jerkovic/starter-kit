@@ -5,12 +5,13 @@ import {useCollection} from "react-firebase-hooks/firestore";
 import {Link, useHistory} from "react-router-dom";
 import {useAuth} from "../components/AuthProvider";
 import firebaseWrapper from "../services/firebaseWrapper";
+import {DynamicFieldSet} from "./DynamicFieldSet";
 
 export const Home = () => {
     const history = useHistory();
     const auth = useAuth();
     const [value, loading, error] = useCollection(
-        firebaseWrapper.db.collection("qualifiers"),
+        firebaseWrapper.db.collection("rankings"),
         {
             snapshotListenOptions: {includeMetadataChanges: true}
         }
@@ -25,11 +26,13 @@ export const Home = () => {
         <div>
             <Title level={3}>Home</Title>
             <Link to={`/upload`}>
-                <Button type="primary" key="console">
-                    Upload
-                </Button>
+                <Button type="primary">Upload</Button>
+            </Link>
+            <Link to={`/register`}>
+                <Button type="primary">Register</Button>
             </Link>
             <div>
+                <DynamicFieldSet />
                 {error && <strong>Error: {JSON.stringify(error)}</strong>}
                 {loading && <Spin />}
                 {value && (

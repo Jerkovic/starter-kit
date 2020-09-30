@@ -10,7 +10,7 @@ import {PrivateRoute} from "./components/PrivateRoute";
 import history from "./helpers/history";
 import firebaseWrapper from "./services/firebaseWrapper";
 import {RootStore} from "./stores/RootStore";
-import {Home, Login} from "./views";
+import {Home, Login, SignUpView} from "./views";
 import {UploadView} from "./views/UploadView";
 
 interface AppProps {
@@ -33,6 +33,7 @@ const App = (props: AppProps) => {
                     <Switch>
                         <Route exact path="/" component={Home} />
                         <Route exact path="/login" component={Login} />
+                        <Route exact path="/register" component={SignUpView} />
                         <PrivateRoute
                             exact
                             path="/upload"

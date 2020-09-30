@@ -30,6 +30,14 @@ class Firebase {
         }
     }
 
+    public async getBearerToken(): Promise<string> {
+        if (this.auth.currentUser) {
+            return await this.auth.currentUser.getIdToken();
+        } else {
+            return Promise.reject("Could not fetch bearer token");
+        }
+    }
+
     public isAuthenticated(): boolean {
         return this.auth.currentUser !== null;
     }
@@ -44,7 +52,9 @@ class Firebase {
         });
     }
 
-    // async register
+    public async register(email: string, password: string) {
+        return this.auth.createUserWithEmailAndPassword(email, password);
+    }
 }
 const firebaseWrapper = new Firebase();
 export default firebaseWrapper;

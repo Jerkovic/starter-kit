@@ -15,6 +15,10 @@ export const UploadView = () => {
         const id = uuidv4();
         const fileRef = storageRef.child(id);
         const task = fileRef.put(file);
+
+        const bearerToken = await firebaseWrapper.getBearerToken();
+        console.log("Bearer :" + bearerToken);
+
         task.on(
             firebase.storage.TaskEvent.STATE_CHANGED,
             (snapshot: firebase.storage.UploadTaskSnapshot) => {
