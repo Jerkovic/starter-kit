@@ -40,15 +40,6 @@ export const AuthProvider = (props: AuthProviderProps) => {
                         .then((d: firebase.firestore.DocumentSnapshot<any>) => {
                             setUserDetails({logins: d.data().logins});
                         });
-                    user.providerData.forEach((profile) => {
-                        if (profile) {
-                            console.log("  Provider: " + profile.providerId);
-                            console.log("  UID: " + profile.uid);
-                            console.log("  Name: " + profile.displayName);
-                            console.log("  Email: " + profile.email);
-                            console.log("  Photo URL: " + profile.photoURL);
-                        }
-                    });
                 } else {
                     setUserDetails(null);
                 }

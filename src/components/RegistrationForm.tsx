@@ -1,8 +1,9 @@
 import {Button, Checkbox, Form, Input} from "antd";
 import {message} from "antd/es";
 import React from "react";
-import {useHistory} from "react-router-dom";
+import {useHistory, Redirect} from "react-router-dom";
 import firebaseWrapper from "../services/firebaseWrapper";
+import {useAuth} from "./AuthProvider";
 
 const formItemLayout = {
     labelCol: {
@@ -30,15 +31,20 @@ const tailFormItemLayout = {
 export const RegistrationForm = () => {
     const [form] = Form.useForm();
     const history = useHistory();
+    const auth = useAuth();
 
     const onFinish = (values: any) => {
         firebaseWrapper
             .register(values.email, values.password)
-            .then((r) => {
+            .then(() => {
                 history.push("/login");
             })
             .catch((e) => message.error(e.message));
     };
+
+    if (auth.currentUser) {
+        return <Redirect to="/" />;
+    }
 
     return (
         <Form

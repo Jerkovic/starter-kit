@@ -29,7 +29,7 @@ export const Home = () => {
                 <Button type="primary">Upload</Button>
             </Link>
             <Link to={`/register`}>
-                <Button type="primary">Register</Button>
+                <Button type="default">Register</Button>
             </Link>
             <div>
                 <DynamicFieldSet />

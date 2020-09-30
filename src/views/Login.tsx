@@ -1,8 +1,8 @@
 import {Button} from "antd";
-import {Checkbox, Form, Input, message} from "antd/es";
+import {Checkbox, Divider, Form, Input, message} from "antd/es";
 import * as firebase from "firebase/app";
 import * as React from "react";
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import firebaseWrapper from "../services/firebaseWrapper";
 
 const layout = {
@@ -17,6 +17,7 @@ export const Login = () => {
     const history = useHistory();
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
+    const [submitted, setSubmitted] = React.useState(false);
 
     async function login() {
         try {
@@ -52,9 +53,11 @@ export const Login = () => {
     }
 
     const onFinish = (values: any) => {
+        setSubmitted(true);
         login()
             .then()
-            .catch((e) => message.error(e.message));
+            .catch((e) => message.error(e.message))
+            .finally(() => setSubmitted(false));
     };
 
     const onFinishFailed = (errorInfo: any) => {
@@ -65,7 +68,7 @@ export const Login = () => {
         <div>
             <Form
                 {...layout}
-                name="basic"
+                name="login-form"
                 initialValues={{remember: true}}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}>
@@ -101,9 +104,21 @@ export const Login = () => {
                 </Form.Item>
 
                 <Form.Item {...tailLayout}>
-                    <Button type="primary" htmlType="submit">
+                    <Button
+                        block
+                        loading={submitted}
+                        type="primary"
+                        htmlType="submit">
                         Sign in
                     </Button>
+                </Form.Item>
+                <Form.Item {...tailLayout}>
+                    <Divider>Or</Divider>
+                    <Link to={`/register`}>
+                        <Button block type="default" htmlType="button">
+                            Register a new account
+                        </Button>
+                    </Link>
                 </Form.Item>
             </Form>
         </div>
