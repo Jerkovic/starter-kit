@@ -16,7 +16,11 @@ import * as functions from "firebase-functions";
 
 export const test = functions.https.onRequest((request, response) => {
     functions.logger.info("Hello logs!", {structuredData: true});
-    response.send("Hello from backend!");
+    const ip =
+        request.headers["x-appengine-user-ip"] ||
+        request.headers["x-forwarded-for"] ||
+        request.connection.remoteAddress;
+    response.send("Hello from backend! " + ip);
 });
 
 /**

@@ -1,9 +1,9 @@
+import {LoginOutlined} from "@ant-design/icons";
 import {Button} from "antd";
 import {Checkbox, Divider, Form, Input, message} from "antd/es";
 import * as React from "react";
 import {Link, useHistory} from "react-router-dom";
 import firebaseWrapper from "../services/firebaseWrapper";
-import {LoginOutlined} from "@ant-design/icons";
 
 const layout = {
     labelCol: {span: 8},
