@@ -21,43 +21,23 @@ export const Login = () => {
 
     async function login() {
         try {
-            const credentials = await firebaseWrapper.login(email, password);
-            // await increaseLogin(credentials.user);
-            history.push("/");
+            await firebaseWrapper.login(email, password);
         } catch (error) {
             console.log(error);
             throw error;
         }
     }
 
-    async function increaseLogin(user: firebase.User | null) {
-        if (!user) {
-            return;
-        }
-        const profile = await firebaseWrapper.db
-            .collection("users")
-            .doc(user.uid)
-            .get();
-
-        if (profile && profile.exists) {
-            const inc1 = firebase.firestore.FieldValue.increment(1);
-            await profile.ref.update({
-                logins: inc1
-            });
-        } else {
-            await firebaseWrapper.db
-                .collection("users")
-                .doc(user.uid)
-                .set({logins: 1});
-        }
-    }
-
     const onFinish = (values: any) => {
         setSubmitted(true);
         login()
-            .then()
-            .catch((e) => message.error(e.message))
-            .finally(() => setSubmitted(false));
+            .then(() => {
+                history.push("/");
+            })
+            .catch((e) => {
+                setSubmitted(false);
+                message.error(e.message);
+            });
     };
 
     const onFinishFailed = (errorInfo: any) => {

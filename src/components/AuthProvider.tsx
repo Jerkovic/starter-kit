@@ -34,15 +34,8 @@ export const AuthProvider = (props: AuthProviderProps) => {
         const unsubscribe = firebaseWrapper.auth.onAuthStateChanged(
             (user: firebase.User | null) => {
                 setCurrentUser(firebaseWrapper.auth.currentUser);
-                if (user) {
-                    firebaseWrapper
-                        .getUserProfile()
-                        .then((d: firebase.firestore.DocumentSnapshot<any>) => {
-                            setUserDetails({logins: d.data().logins});
-                        });
-                } else {
-                    setUserDetails(null);
-                }
+                // todo try to load user profile
+                setUserDetails(null);
                 setPending(false);
             }
         );

@@ -4,6 +4,7 @@ const {Content, Footer, Header} = Layout;
 
 import {PageHeader} from "antd";
 import {Link} from "react-router-dom";
+import {AppMenu} from "./AppMenu";
 import {useAuth} from "./AuthProvider";
 
 interface AppLayoutProps {
@@ -15,15 +16,8 @@ export const AppLayout = (props: AppLayoutProps) => {
 
     return (
         <div>
-            <Header>
-                <div className="logo">
-                    {auth.currentUser ? (
-                        `${auth.currentUser.email}`
-                    ) : (
-                        <Link to={"/login"}>Login</Link>
-                    )}
-                    {auth.userDetails && auth.userDetails.logins}
-                </div>
+            <Header style={{background: "#fff"}}>
+                <AppMenu isMobile={false} />
             </Header>
             <Layout style={{minHeight: "100vh"}}>
                 <Layout>
@@ -31,8 +25,8 @@ export const AppLayout = (props: AppLayoutProps) => {
                         style={{
                             border: "1px solid rgb(235, 237, 240)"
                         }}
-                        title="Use this area for contextual content for your view"
-                        subTitle="UI stuffs"
+                        title="page header title"
+                        subTitle="sub head"
                     />
                     <Content
                         style={{

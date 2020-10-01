@@ -1,9 +1,8 @@
 import {Button, Checkbox, Form, Input} from "antd";
-import {message} from "antd/es";
+import {message, notification} from "antd/es";
 import React from "react";
-import {useHistory, Redirect} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import firebaseWrapper from "../services/firebaseWrapper";
-import {useAuth} from "./AuthProvider";
 
 const formItemLayout = {
     labelCol: {
@@ -11,7 +10,7 @@ const formItemLayout = {
         xs: {span: 24}
     },
     wrapperCol: {
-        sm: {span: 16},
+        sm: {span: 8},
         xs: {span: 24}
     }
 };
@@ -19,7 +18,7 @@ const tailFormItemLayout = {
     wrapperCol: {
         sm: {
             offset: 8,
-            span: 16
+            span: 8
         },
         xs: {
             offset: 0,
@@ -31,20 +30,31 @@ const tailFormItemLayout = {
 export const RegistrationForm = () => {
     const [form] = Form.useForm();
     const history = useHistory();
-    const auth = useAuth();
+    const [submitted, setSubmitted] = React.useState(false);
+
+    const openNotification = () => {
+        notification.open({
+            description: "This is the content of the notification",
+            message: "Account",
+            onClick: () => {
+                console.log("Notification Clicked!");
+            }
+        });
+    };
 
     const onFinish = (values: any) => {
+        setSubmitted(true);
         firebaseWrapper
             .register(values.email, values.password)
             .then(() => {
                 history.push("/login");
+                openNotification();
             })
-            .catch((e) => message.error(e.message));
+            .catch((e) => {
+                setSubmitted(false);
+                message.error(e.message);
+            });
     };
-
-    if (auth.currentUser) {
-        return <Redirect to="/" />;
-    }
 
     return (
         <Form
@@ -122,7 +132,11 @@ export const RegistrationForm = () => {
                 </Checkbox>
             </Form.Item>
             <Form.Item {...tailFormItemLayout}>
-                <Button type="primary" htmlType="submit">
+                <Button
+                    block
+                    loading={submitted}
+                    type="primary"
+                    htmlType="submit">
                     Register
                 </Button>
             </Form.Item>
