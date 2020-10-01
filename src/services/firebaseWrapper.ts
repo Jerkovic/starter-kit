@@ -21,15 +21,6 @@ class Firebase {
         return this.auth.signInWithEmailAndPassword(email, password);
     }
 
-    public async getUserProfile(): Promise<app.firestore.DocumentSnapshot> {
-        const user = await this.auth.currentUser;
-        if (user) {
-            return this.db.doc(`/users/${user.uid}`).get();
-        } else {
-            return Promise.reject("Could not load profile");
-        }
-    }
-
     public async getBearerToken(): Promise<string> {
         if (this.auth.currentUser) {
             return await this.auth.currentUser.getIdToken();
@@ -42,8 +33,8 @@ class Firebase {
         return this.auth.currentUser !== null;
     }
 
-    public logout() {
-        return this.auth.signOut();
+    public async logout() {
+        return await this.auth.signOut();
     }
 
     public isInitialized(): Promise<any> {
