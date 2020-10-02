@@ -10,6 +10,7 @@
             "allow-leading-underscore",
             "allow-pascal-case"
         ],
+        "object-literal-sort-keys": false,
         "no-submodule-imports": false,
         "no-return-await": false,
         "no-empty": false,

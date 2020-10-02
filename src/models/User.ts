@@ -1,4 +1,5 @@
 export interface User {
+    doc_id: string;
     id: string;
     isActive: boolean;
     firstName: string;
