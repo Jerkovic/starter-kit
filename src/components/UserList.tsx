@@ -4,6 +4,7 @@ import * as React from "react";
 import {useCollection} from "react-firebase-hooks/firestore";
 import {User} from "../models/User";
 import firebaseWrapper from "../services/firebaseWrapper";
+import {UserDrawer} from "./UserDrawer";
 
 const {confirm} = Modal;
 
@@ -128,11 +129,7 @@ export const UserList = () => {
                 <>
                     <Table
                         bordered
-                        title={() => (
-                            <Button type="primary" style={{marginBottom: 16}}>
-                                Add new User
-                            </Button>
-                        )}
+                        title={() => <UserDrawer />}
                         loading={loading}
                         rowKey={"id"}
                         dataSource={data.docs.map((doc) => {

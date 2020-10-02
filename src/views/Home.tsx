@@ -9,7 +9,9 @@ export const Home = () => {
     return (
         <div>
             <Breakpoints />
-            <Card title="Profile" style={{width: 400, marginTop: 16}}>
+            <Card
+                title="Profile"
+                style={{width: 400, marginTop: 16, marginBottom: 16}}>
                 <p>
                     <Text type="secondary">
                         this is some text about your profile grading
