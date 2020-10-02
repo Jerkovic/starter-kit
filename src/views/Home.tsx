@@ -1,11 +1,19 @@
 import {DeleteFilled, EditFilled} from "@ant-design/icons";
-import {Button, Popconfirm, Progress, Spin, Table} from "antd/es";
+import {
+    Button,
+    Card,
+    Popconfirm,
+    Progress,
+    Spin,
+    Table,
+    Typography
+} from "antd/es";
 import * as React from "react";
 import {useCollection} from "react-firebase-hooks/firestore";
 import Breakpoints from "../components/Breakpoints";
 import {User} from "../models/User";
 import firebaseWrapper from "../services/firebaseWrapper";
-import {DynamicFieldSet} from "./DynamicFieldSet";
+const {Text} = Typography;
 
 export const Home = () => {
     const [data, loading, error] = useCollection(
@@ -95,12 +103,19 @@ export const Home = () => {
     return (
         <div>
             <Breakpoints />
-            <Progress
-                key="profile-progress"
-                type="circle"
-                percent={30}
-                width={80}
-            />
+            <Card title="Profile" style={{width: 400, marginTop: 16}}>
+                <p>
+                    <Text type="secondary">
+                        this is some text about your profile grading
+                    </Text>
+                </p>
+                <Progress
+                    key="profile-progress"
+                    type="circle"
+                    percent={30}
+                    width={80}
+                />
+            </Card>
             {error && <strong>Error: {JSON.stringify(error)}</strong>}
             {data && (
                 <>
