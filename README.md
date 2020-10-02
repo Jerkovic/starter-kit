@@ -1,6 +1,8 @@
-# Frontend Starter Kit
+# Firebase Starter Kit
 
-**TypeScript, Babel, Webpack, React, Mobx, AntD 4**
+**Frontend TypeScript, Babel, Webpack, React, Mobx, AntD 4**
+
+**Backend Firebase (Auth, Storage, Firestore, Cloud Functions)**
 
 ## Getting started
 
@@ -52,4 +54,4 @@ App accessible at http://localhost:3000
 ## Todo
 
 -   Firebase credentials in .env file
--   Giphy api
+-   Basic Crud on users
