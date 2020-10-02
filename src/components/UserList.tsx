@@ -25,7 +25,9 @@ export const UserList = () => {
             cancelText: "No",
             onOk() {
                 deleteUser(user.id)
-                    .then()
+                    .then(() => {
+                        message.info("User was deleted successfully");
+                    })
                     .catch((e) => {
                         message.error(e.message);
                     });
@@ -125,6 +127,7 @@ export const UserList = () => {
             {data && (
                 <>
                     <Table
+                        bordered
                         title={() => (
                             <Button type="primary" style={{marginBottom: 16}}>
                                 Add new User
