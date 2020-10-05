@@ -1,11 +1,37 @@
 import {PlusOutlined} from "@ant-design/icons";
-import {Button, Col, Drawer, Form, Input, Row, Select} from "antd";
+import {Button, Drawer, Form} from "antd";
 import * as React from "react";
 import {UserForm} from "./UserForm";
+import firebaseWrapper from "../services/firebaseWrapper";
+import {message} from "antd/es";
 
 export const UserDrawer = () => {
     const [visible, setVisible] = React.useState(false);
     const [form] = Form.useForm();
+
+    const onCreateUser = (values: any) => {
+        firebaseWrapper.db
+            .collection("users")
+            .add({
+                firstName: values.firstName,
+                lastName: values.lastName,
+                birthYear: values.birthYear.year(),
+                gender: values.gender,
+                email: values.email,
+                phone: values.phone,
+                isActive: false
+            })
+            .then((docRef) => {
+                setVisible(false);
+                form.resetFields();
+                message.info(
+                    `User with id '${docRef.id}' was successfully created.`
+                );
+            })
+            .catch((e) => {
+                message.error(e.message);
+            });
+    };
 
     return (
         <>
@@ -39,7 +65,7 @@ export const UserDrawer = () => {
                         </Button>
                     </div>
                 }>
-                <UserForm form={form} onFinish={() => setVisible(false)} />
+                <UserForm form={form} onFinish={onCreateUser} />
             </Drawer>
         </>
     );

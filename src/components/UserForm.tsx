@@ -2,54 +2,32 @@ import * as React from "react";
 import {Col, Form, Input, Row, Select} from "antd";
 import {DatePicker, message} from "antd/es";
 import {FormInstance} from "antd/es/form";
-import firebaseWrapper from "../services/firebaseWrapper";
+import {User} from "../models/User";
 
 const {Option} = Select;
 
 export interface UserFormProps {
     form: FormInstance;
-    onFinish: () => void;
+    onFinish: (values: any) => void;
 }
 
 const prefixSelector = (
     <Form.Item name="prefix" noStyle>
         <Select style={{width: 70}}>
-            <Option value="46">+46</Option>
+            <Option default value="46">
+                +46
+            </Option>
         </Select>
     </Form.Item>
 );
 export const UserForm = (props: UserFormProps) => {
-    const onFinish = (values: any) => {
-        props.form.resetFields();
-        const userRef = firebaseWrapper.db
-            .collection("users")
-            .add({
-                firstName: values.firstName,
-                lastName: values.lastName,
-                birthYear: values.birthYear.year(),
-                gender: values.gender,
-                email: values.email,
-                phone: values.phone,
-                isActive: false
-            })
-            .then((docRef) => {
-                message.info(
-                    `User with id '${docRef.id}' was successfully created.`
-                );
-                props.onFinish();
-            })
-            .catch((e) => {
-                message.error(e.message);
-            });
-    };
-
     return (
         <div>
             <Form
                 form={props.form}
                 layout="vertical"
                 hideRequiredMark
-                onFinish={onFinish}>
+                onFinish={props.onFinish}>
                 <Row gutter={16}>
                     <Col span={12}>
                         <Form.Item

@@ -1,27 +1,24 @@
 import {DeleteFilled, EditFilled} from "@ant-design/icons";
-import {Button, message, Modal, Popconfirm, Table} from "antd/es";
+import {Button, message, Modal, Table} from "antd/es";
 import * as React from "react";
 import {useCollection} from "react-firebase-hooks/firestore";
 import {User} from "../models/User";
 import firebaseWrapper from "../services/firebaseWrapper";
 import {UserDrawer} from "./UserDrawer";
+import {UserForm} from "./UserForm";
+import {useForm} from "antd/es/form/Form";
 
 const {confirm} = Modal;
 
 export const UserList = () => {
+    const [visible, setVisible] = React.useState(false);
+    const [form] = useForm();
     const [querySnapshot, loading, error] = useCollection(
         firebaseWrapper.db.collection("users").orderBy("firstName", "asc"),
         {
             snapshotListenOptions: {includeMetadataChanges: true}
         }
     );
-
-    if (querySnapshot) {
-        const changes = querySnapshot.docChanges();
-        for (const change of changes) {
-            console.log(`A document was ${change.type}. ${change.doc.id}`);
-        }
-    }
 
     function showDeleteConfirm(user: User) {
         confirm({
@@ -105,7 +102,9 @@ export const UserList = () => {
                     shape="circle"
                     icon={<EditFilled translate={1} />}
                     size={"small"}
-                    onClick={() => console.log("modal edit")}
+                    onClick={() => {
+                        setVisible(true);
+                    }}
                 />
             ),
             title: "",
@@ -134,6 +133,24 @@ export const UserList = () => {
             {error && <strong>Error: {JSON.stringify(error)}</strong>}
             {querySnapshot && (
                 <>
+                    <Modal
+                        title={"edit user"}
+                        width={800}
+                        centered
+                        onCancel={() => setVisible(false)}
+                        visible={visible}
+                        footer={[
+                            <Button
+                                key="back"
+                                onClick={() => setVisible(false)}>
+                                Cancel
+                            </Button>
+                        ]}>
+                        <UserForm
+                            form={form}
+                            onFinish={() => console.log("update save")}
+                        />
+                    </Modal>
                     <Table
                         bordered
                         title={() => <UserDrawer />}
