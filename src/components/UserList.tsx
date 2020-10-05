@@ -9,12 +9,19 @@ import {UserDrawer} from "./UserDrawer";
 const {confirm} = Modal;
 
 export const UserList = () => {
-    const [data, loading, error] = useCollection(
-        firebaseWrapper.db.collection("users"),
+    const [querySnapshot, loading, error] = useCollection(
+        firebaseWrapper.db.collection("users").orderBy("firstName", "asc"),
         {
             snapshotListenOptions: {includeMetadataChanges: true}
         }
     );
+
+    if (querySnapshot) {
+        const changes = querySnapshot.docChanges();
+        for (const change of changes) {
+            console.log(`A document was ${change.type}. ${change.doc.id}`);
+        }
+    }
 
     function showDeleteConfirm(user: User) {
         confirm({
@@ -125,14 +132,14 @@ export const UserList = () => {
     return (
         <div>
             {error && <strong>Error: {JSON.stringify(error)}</strong>}
-            {data && (
+            {querySnapshot && (
                 <>
                     <Table
                         bordered
                         title={() => <UserDrawer />}
                         loading={loading}
                         rowKey={"id"}
-                        dataSource={data.docs.map((doc) => {
+                        dataSource={querySnapshot.docs.map((doc) => {
                             const user = {...doc.data(), id: doc.id};
                             return user as User;
                         })}
