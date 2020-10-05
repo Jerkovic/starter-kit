@@ -50,6 +50,7 @@ export const Login = () => {
                 {...layout}
                 name="login-form"
                 initialValues={{remember: true}}
+                hideRequiredMark
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}>
                 <Form.Item
