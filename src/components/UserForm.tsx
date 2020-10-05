@@ -21,7 +21,6 @@ const prefixSelector = (
 export const UserForm = (props: UserFormProps) => {
     const onFinish = (values: any) => {
         props.form.resetFields();
-        console.log(values);
         const userRef = firebaseWrapper.db
             .collection("users")
             .add({
@@ -33,8 +32,10 @@ export const UserForm = (props: UserFormProps) => {
                 phone: values.phone,
                 isActive: false
             })
-            .then(() => {
-                message.info("User was created successfully");
+            .then((docRef) => {
+                message.info(
+                    `User with id '${docRef.id}' was successfully created.`
+                );
                 props.onFinish();
             })
             .catch((e) => {
