@@ -1,26 +1,37 @@
 import * as React from "react";
 import {Col, Form, Input, Row, Select} from "antd";
-import {DatePicker, message} from "antd/es";
+import {DatePicker} from "antd/es";
 import {FormInstance} from "antd/es/form";
 import {User} from "../models/User";
+import moment from "moment";
 
 const {Option} = Select;
 
 export interface UserFormProps {
     form: FormInstance;
     onFinish: (values: any) => void;
+    user: User | null;
+    mode: "create" | "edit";
 }
 
-const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-        <Select style={{width: 70}}>
-            <Option default value="46">
-                +46
-            </Option>
-        </Select>
-    </Form.Item>
-);
 export const UserForm = (props: UserFormProps) => {
+    const [user, setUser] = React.useState<User | null>(props.user);
+
+    React.useEffect(() => {
+        setUser(props.user);
+        console.log(user);
+        if (user) {
+            props.form.setFieldsValue({
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                phone: user.phone,
+                gender: user.gender,
+                birthYear: moment(user.birthYear, "YYYY")
+            });
+        }
+    });
+
     return (
         <div>
             <Form
@@ -115,10 +126,7 @@ export const UserForm = (props: UserFormProps) => {
                                     message: "Please input your phone number!"
                                 }
                             ]}>
-                            <Input
-                                addonBefore={prefixSelector}
-                                style={{width: "100%"}}
-                            />
+                            <Input />
                         </Form.Item>
                     </Col>
                 </Row>

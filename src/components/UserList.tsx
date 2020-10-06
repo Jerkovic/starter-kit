@@ -12,6 +12,7 @@ const {confirm} = Modal;
 
 export const UserList = () => {
     const [visible, setVisible] = React.useState(false);
+    const [editUser, setEditUser] = React.useState<User | null>(null);
     const [form] = useForm();
     const [querySnapshot, loading, error] = useCollection(
         firebaseWrapper.db.collection("users").orderBy("firstName", "asc"),
@@ -103,6 +104,8 @@ export const UserList = () => {
                     icon={<EditFilled translate={1} />}
                     size={"small"}
                     onClick={() => {
+                        form.resetFields();
+                        setEditUser(user);
                         setVisible(true);
                     }}
                 />
@@ -130,27 +133,36 @@ export const UserList = () => {
 
     return (
         <div>
+            <Modal
+                title={"Edit user"}
+                width={800}
+                key={"user-modal"}
+                centered
+                onCancel={() => setVisible(false)}
+                visible={visible}
+                footer={[
+                    <Button key="back" onClick={() => setVisible(false)}>
+                        Cancel
+                    </Button>,
+                    <Button
+                        type="primary"
+                        onClick={form.submit}
+                        style={{marginRight: 8}}>
+                        Save
+                    </Button>
+                ]}>
+                {editUser && (
+                    <UserForm
+                        mode={"edit"}
+                        user={editUser}
+                        form={form}
+                        onFinish={() => console.log("edit save")}
+                    />
+                )}
+            </Modal>
             {error && <strong>Error: {JSON.stringify(error)}</strong>}
             {querySnapshot && (
                 <>
-                    <Modal
-                        title={"edit user"}
-                        width={800}
-                        centered
-                        onCancel={() => setVisible(false)}
-                        visible={visible}
-                        footer={[
-                            <Button
-                                key="back"
-                                onClick={() => setVisible(false)}>
-                                Cancel
-                            </Button>
-                        ]}>
-                        <UserForm
-                            form={form}
-                            onFinish={() => console.log("update save")}
-                        />
-                    </Modal>
                     <Table
                         bordered
                         title={() => <UserDrawer />}

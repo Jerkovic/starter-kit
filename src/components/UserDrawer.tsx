@@ -65,7 +65,12 @@ export const UserDrawer = () => {
                         </Button>
                     </div>
                 }>
-                <UserForm form={form} onFinish={onCreateUser} />
+                <UserForm
+                    user={null}
+                    mode={"create"}
+                    form={form}
+                    onFinish={onCreateUser}
+                />
             </Drawer>
         </>
     );
