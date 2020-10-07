@@ -54,4 +54,6 @@ App accessible at http://localhost:3000
 ## Todo
 
 -   Firebase credentials in .env file
--   Basic Crud on users
+-   Basic Crud on users (WIP)
+-   Forgotten Password
+-   User change password.
