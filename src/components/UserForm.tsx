@@ -19,7 +19,6 @@ export const UserForm = (props: UserFormProps) => {
 
     React.useEffect(() => {
         setUser(props.user);
-        console.log(user);
         if (user) {
             props.form.setFieldsValue({
                 firstName: user.firstName,

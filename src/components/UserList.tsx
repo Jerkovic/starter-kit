@@ -21,6 +21,31 @@ export const UserList = () => {
         }
     );
 
+    const onUpdateUser = (values: any) => {
+        if (editUser) {
+            firebaseWrapper.db
+                .collection("users")
+                .doc(editUser.id)
+                .update({
+                    firstName: values.firstName,
+                    lastName: values.lastName,
+                    birthYear: values.birthYear.year(),
+                    gender: values.gender,
+                    email: values.email,
+                    phone: values.phone,
+                    isActive: false
+                })
+                .then(() => {
+                    setVisible(false);
+                    form.resetFields();
+                    message.info(`User was successfully updated.`);
+                })
+                .catch((e) => {
+                    message.error(e.message);
+                });
+        }
+    };
+
     function showDeleteConfirm(user: User) {
         confirm({
             content:
@@ -134,7 +159,7 @@ export const UserList = () => {
     return (
         <div>
             <Modal
-                title={"Edit user"}
+                title={"Edit User"}
                 width={800}
                 key={"user-modal"}
                 centered
@@ -145,6 +170,7 @@ export const UserList = () => {
                         Cancel
                     </Button>,
                     <Button
+                        key="submit"
                         type="primary"
                         onClick={form.submit}
                         style={{marginRight: 8}}>
@@ -156,7 +182,7 @@ export const UserList = () => {
                         mode={"edit"}
                         user={editUser}
                         form={form}
-                        onFinish={() => console.log("edit save")}
+                        onFinish={(values: any) => onUpdateUser(values)}
                     />
                 )}
             </Modal>

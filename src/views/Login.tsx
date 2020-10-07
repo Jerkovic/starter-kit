@@ -23,7 +23,6 @@ export const Login = () => {
         try {
             await firebaseWrapper.login(email, password);
         } catch (error) {
-            console.log(error);
             throw error;
         }
     }
