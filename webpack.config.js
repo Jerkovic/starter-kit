@@ -2,6 +2,7 @@ const merge = require("webpack-merge");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
     .BundleAnalyzerPlugin;
 const WebpackMonitor = require("webpack-monitor");
+const Dotenv = require("dotenv-webpack");
 const commonConfig = {};
 const ENV_DEVELOPMENT = "development";
 const ENV_PRODUCTION = "production";
@@ -13,6 +14,8 @@ const config = (env, argv) => {
         env && env.hasOwnProperty("DEBUG") ? Boolean(env.DEBUG) : false;
 
     const envWebpackConfig = require(`./webpack.config.${webpackConfig}`);
+
+    commonConfig.plugins = [new Dotenv()];
 
     if (analyzeWebpackBuild) {
         envWebpackConfig.plugins.push(new BundleAnalyzerPlugin());

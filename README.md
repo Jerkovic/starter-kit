@@ -25,11 +25,13 @@ App accessible at http://localhost:3000
 ## Tools included
 
 -   Webpack
+
     -   HTML Webpack Plugin
     -   Mini CSS Extract Plugin
     -   Webpack Dev Server
     -   Sass/Scss/Css/Style-loader
     -   Favicons Webpack Plugin
+
 -   Babel
     -   React
     -   TypeScript
@@ -53,7 +55,7 @@ App accessible at http://localhost:3000
 
 ## Todo
 
--   Firebase credentials in .env file
+-   Firebase credentials in .env file (WIP)
 -   Basic Crud on users (WIP)
--   Forgotten Password
+-   Forgotten Password (DONE)
 -   User change password.
