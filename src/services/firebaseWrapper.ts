@@ -46,6 +46,10 @@ class Firebase {
     public async register(email: string, password: string) {
         return this.auth.createUserWithEmailAndPassword(email, password);
     }
+
+    public async sendPasswordResetEmail(email: string) {
+        return this.auth.sendPasswordResetEmail(email);
+    }
 }
 const firebaseWrapper = new Firebase();
 export default firebaseWrapper;

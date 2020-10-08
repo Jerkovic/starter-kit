@@ -12,6 +12,7 @@ import firebaseWrapper from "./services/firebaseWrapper";
 import {RootStore} from "./stores/RootStore";
 import {Home, Login, SignUpView} from "./views";
 import {UploadView} from "./views/UploadView";
+import {RestorePassword} from "./views/RestorePassword";
 
 interface AppProps {
     rootStore: RootStore;
@@ -34,6 +35,11 @@ const App = (props: AppProps) => {
                         <Route exact path="/" component={Home} />
                         <Route exact path="/login" component={Login} />
                         <Route exact path="/register" component={SignUpView} />
+                        <Route
+                            exact
+                            path="/restore"
+                            component={RestorePassword}
+                        />
                         <PrivateRoute
                             exact
                             path="/upload"

@@ -84,6 +84,10 @@ export const Login = () => {
                 </Form.Item>
 
                 <Form.Item {...tailLayout}>
+                    <Link to={`/restore`}>Forgotten password?</Link>
+                </Form.Item>
+
+                <Form.Item {...tailLayout}>
                     <Button
                         block
                         loading={submitted}
