@@ -163,6 +163,7 @@ export const UserList = () => {
                 width={800}
                 key={"user-modal"}
                 centered
+                maskClosable={false}
                 onCancel={() => setVisible(false)}
                 visible={visible}
                 footer={[
@@ -182,7 +183,7 @@ export const UserList = () => {
                         mode={"edit"}
                         user={editUser}
                         form={form}
-                        onFinish={(values: any) => onUpdateUser(values)}
+                        onFinish={onUpdateUser}
                     />
                 )}
             </Modal>

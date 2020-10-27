@@ -7,9 +7,11 @@ import {message} from "antd/es";
 
 export const UserDrawer = () => {
     const [visible, setVisible] = React.useState(false);
+    const [submitted, setSubmitted] = React.useState(false);
     const [form] = Form.useForm();
 
     const onCreateUser = (values: any) => {
+        setSubmitted(true);
         firebaseWrapper.db
             .collection("users")
             .add({
@@ -30,6 +32,7 @@ export const UserDrawer = () => {
             })
             .catch((e) => {
                 message.error(e.message);
+                setSubmitted(false);
             });
     };
 
@@ -58,6 +61,7 @@ export const UserDrawer = () => {
                             Reset form
                         </Button>
                         <Button
+                            loading={submitted}
                             type="primary"
                             onClick={form.submit}
                             style={{marginRight: 8}}>

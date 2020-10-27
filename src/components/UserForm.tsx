@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Col, Form, Input, Row, Select} from "antd";
-import {DatePicker} from "antd/es";
+import {DatePicker, Spin} from "antd/es";
 import {FormInstance} from "antd/es/form";
 import {User} from "../models/User";
 import moment from "moment";
@@ -16,6 +16,7 @@ export interface UserFormProps {
 
 export const UserForm = (props: UserFormProps) => {
     const [user, setUser] = React.useState<User | null>(props.user);
+    const [dirty, setDirty] = React.useState(false);
 
     React.useEffect(() => {
         setUser(props.user);
@@ -37,6 +38,9 @@ export const UserForm = (props: UserFormProps) => {
                 form={props.form}
                 layout="vertical"
                 hideRequiredMark
+                onFieldsChange={(changedFields, allFields) => {
+                    setDirty(true);
+                }}
                 onFinish={props.onFinish}>
                 <Row gutter={16}>
                     <Col span={12}>
