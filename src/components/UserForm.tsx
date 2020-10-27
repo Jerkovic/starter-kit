@@ -2,6 +2,7 @@ import * as React from "react";
 import {Col, Form, Input, Row, Select} from "antd";
 import {DatePicker, Spin} from "antd/es";
 import {FormInstance} from "antd/es/form";
+import {useBeforeUnload} from "../helpers/utils";
 import {User} from "../models/User";
 import moment from "moment";
 
@@ -16,7 +17,9 @@ export interface UserFormProps {
 
 export const UserForm = (props: UserFormProps) => {
     const [user, setUser] = React.useState<User | null>(props.user);
-    const [dirty, setDirty] = React.useState(false);
+    const [dirty, setDirty] = React.useState<boolean>(false);
+
+    // useBeforeUnload(dirty);
 
     React.useEffect(() => {
         setUser(props.user);
