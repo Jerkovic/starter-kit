@@ -1,5 +1,6 @@
 import {DeleteFilled, EditFilled} from "@ant-design/icons";
 import {Button, message, Modal, Table} from "antd/es";
+import {ColumnsType} from "antd/es/table";
 import * as React from "react";
 import {useCollection} from "react-firebase-hooks/firestore";
 import {User} from "../models/User";
@@ -15,6 +16,7 @@ export const UserList = () => {
     const [editUser, setEditUser] = React.useState<User | null>(null);
     const [form] = useForm();
     const [querySnapshot, loading, error] = useCollection(
+        // todo ajax server side pagination, sorter, filter
         firebaseWrapper.db.collection("users").orderBy("firstName", "asc"),
         {
             snapshotListenOptions: {includeMetadataChanges: true}
@@ -78,7 +80,7 @@ export const UserList = () => {
         }
     }
 
-    const columns = [
+    const columns: ColumnsType<User> = [
         {
             dataIndex: "id",
             key: "id",
@@ -190,7 +192,7 @@ export const UserList = () => {
             {error && <strong>Error: {JSON.stringify(error)}</strong>}
             {querySnapshot && (
                 <>
-                    <Table
+                    <Table<User>
                         bordered
                         title={() => <UserDrawer />}
                         loading={loading}
@@ -200,6 +202,9 @@ export const UserList = () => {
                             return user as User;
                         })}
                         columns={columns}
+                        onChange={(pagination, filters, sorter) => {
+                            console.log({pagination, filters, sorter});
+                        }}
                     />
                 </>
             )}

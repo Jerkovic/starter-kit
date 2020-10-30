@@ -4,6 +4,7 @@ import * as React from "react";
 import {UserForm} from "./UserForm";
 import firebaseWrapper from "../services/firebaseWrapper";
 import {message} from "antd/es";
+import firebase from "firebase/app";
 
 export const UserDrawer = () => {
     const [visible, setVisible] = React.useState(false);
@@ -23,14 +24,15 @@ export const UserDrawer = () => {
                 phone: values.phone,
                 isActive: false
             })
-            .then((docRef) => {
+            .then((docRef: firebase.firestore.DocumentReference) => {
                 setVisible(false);
+                setSubmitted(false);
                 form.resetFields();
                 message.info(
                     `User with id '${docRef.id}' was successfully created.`
                 );
             })
-            .catch((e) => {
+            .catch((e: Error) => {
                 message.error(e.message);
                 setSubmitted(false);
             });

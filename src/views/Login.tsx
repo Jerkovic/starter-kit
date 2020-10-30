@@ -1,4 +1,4 @@
-import {LoginOutlined} from "@ant-design/icons";
+import {LoginOutlined, LinkedinOutlined} from "@ant-design/icons";
 import {Button} from "antd";
 import {Checkbox, Divider, Form, Input, message} from "antd/es";
 import * as React from "react";
@@ -95,6 +95,17 @@ export const Login = () => {
                         type="primary"
                         htmlType="submit">
                         Sign in
+                    </Button>
+                </Form.Item>
+                <Form.Item {...tailLayout}>
+                    <Button
+                        block
+                        disabled={true}
+                        loading={submitted}
+                        icon={<LinkedinOutlined translate={1} />}
+                        type="default"
+                        htmlType="button">
+                        Sign in with LinkedInt
                     </Button>
                 </Form.Item>
                 <Form.Item {...tailLayout}>
