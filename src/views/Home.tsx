@@ -2,6 +2,7 @@ import {Card, Progress, Typography} from "antd/es";
 import * as React from "react";
 import Breakpoints from "../components/Breakpoints";
 import {UserList} from "../components/UserList";
+import {DynamicFieldSet} from "./DynamicFieldSet";
 
 const {Text} = Typography;
 
@@ -24,6 +25,7 @@ export const Home = () => {
                     width={80}
                 />
             </Card>
+            <DynamicFieldSet />
             <UserList />
         </div>
     );

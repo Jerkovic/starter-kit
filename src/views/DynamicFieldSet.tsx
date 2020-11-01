@@ -1,5 +1,5 @@
 import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
-import {Button} from "antd";
+import {Button, Select} from "antd";
 import {Form, Input} from "antd/es";
 import React from "react";
 
@@ -39,7 +39,7 @@ export const DynamicFieldSet = () => {
                                     {...(index === 0
                                         ? formItemLayout
                                         : formItemLayoutWithOutLabel)}
-                                    label={index === 0 ? "Interest" : ""}
+                                    label={index === 0 ? "Extra fields" : ""}
                                     required={false}
                                     key={field.key}>
                                     <Form.Item
@@ -55,8 +55,8 @@ export const DynamicFieldSet = () => {
                                         ]}
                                         noStyle>
                                         <Input
-                                            placeholder="enter some data"
-                                            style={{width: "60%"}}
+                                            placeholder="enter name"
+                                            style={{width: "20%"}}
                                         />
                                     </Form.Item>
                                     {fields.length > 1 ? (

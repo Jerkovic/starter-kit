@@ -1,0 +1,45 @@
+[
+    {
+        'repeat(5, 10)': {
+            isActive: '{{bool()}}',
+            registeredAt: '{{date()}}',
+            isAdmin: false,
+            birthYear: '{{integer(1943, 1995)}}',
+            firstName: '{{firstName()}}',
+            lastName: '{{surname()}}',
+            gender: '{{random("female", "male")}}',
+            email(tags) {
+                return `${this.firstName}.${this.lastName}@${company()}${tags.domainZone()}`.toLowerCase();
+            },
+            phone: '07{{phone("x-xxx xx xx")}}',
+            streetAddress: '{{integer(100, 999)}} {{street()}}',
+            zipCode: '{{integer(100, 800)}} {{integer(10, 80)}}',
+            city: '{{city()}}',
+            country: '{{country(true)}}',
+            currentOccupation: '{{random("Employee", "Student", "Retired", "Job-seeker")}}',
+            employments: [
+                {
+                    'repeat(1, 7)': {
+                        sortOrder: '{{index()}}',
+                        company: '{{company()}} {{random("Ltd", "AB", "Co", "Inc.", "GmbH")}}',
+                        title: '{{random("CEO", "CTO", "CFO", "Scientist", "Advisor", "President")}}',
+                        salaryLevel: 0
+                    }
+                }
+            ],
+            educations: [
+                            {
+                                'repeat(1, 3)': {
+                                    sortOrder: '{{index()}}',
+                                    name: '{{lorem(1, "sentences")}}',
+                                    level: '{{random("Elementary school","Upper school", "College" , "University", "PhD")}}',
+                                    school: '{{city()}} University',
+                                }
+                            }
+                        ],
+            prefLang: '{{random("sv", "en")}}',
+        }
+    }
+]
+
+
