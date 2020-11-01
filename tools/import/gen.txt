@@ -2,12 +2,13 @@
     {
         'repeat(5, 10)': {
             isActive: '{{bool()}}',
-            registeredAt: '{{date()}}',
+            registeredAt: '{{moment(this.date(new Date(2018, 0, 1), new Date())).format("YYYY-MM-DD")}}',
+            updatedAt: '{{moment(this.date(new Date(2018, 0, 1), new Date())).format("YYYY-MM-DD")}}',
             isAdmin: false,
             birthYear: '{{integer(1943, 1995)}}',
-            firstName: '{{firstName()}}',
-            lastName: '{{surname()}}',
             gender: '{{random("female", "male")}}',
+            firstName: '{{firstName(this.gender)}}',
+            lastName: '{{surname()}}',
             email(tags) {
                 return `${this.firstName}.${this.lastName}@${company()}${tags.domainZone()}`.toLowerCase();
             },
@@ -29,9 +30,9 @@
             ],
             educations: [
                             {
-                                'repeat(1, 3)': {
+                                'repeat(0, 4)': {
                                     sortOrder: '{{index()}}',
-                                    name: '{{lorem(1, "sentences")}}',
+                                    name: '{{lorem(4, "words")}}',
                                     level: '{{random("Elementary school","Upper school", "College" , "University", "PhD")}}',
                                     school: '{{city()}} University',
                                 }

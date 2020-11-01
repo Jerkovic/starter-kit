@@ -3,9 +3,9 @@ const serviceAccount = require("./config/serviceAccount.json");
 
 const jsonToFirestore = async () => {
     try {
-        const databaseUrl = "insert db url here";
+        const databaseUrl = "https://fixi-backend.firebaseio.com";
         await firestoreService.initializeApp(serviceAccount, databaseUrl);
-        await firestoreService.restore("./users.json");
+        await firestoreService.restore("./details.json");
     } catch (error) {
         console.log(error);
     }
